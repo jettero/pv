@@ -8,6 +8,7 @@ use Number::Format;
 use overload 
     '+'  => \&pv_add,
     '*'  => \&pv_mul,
+    '**' => \&pv_mulmul,
     '-'  => \&pv_sub,
     '/'  => \&pv_div,
     '++' => \&pv_inc,
@@ -107,6 +108,20 @@ sub pv_mul {
 
     $v *= $rhs->[0];
     $u *= $rhs->[1];
+
+    return bless [ $v, $u ], ref $lhs;
+}
+# }}}
+# pv_mulmul {{{
+sub pv_mulmul {
+    my ($lhs, $rhs) = @_; 
+
+    croak "right hand side must be a scalar (ie no units)" if ref($rhs);
+
+    my ($v, $u) = (@$lhs);
+
+    $v = $v ** $rhs;
+    $u = $u ** $rhs;
 
     return bless [ $v, $u ], ref $lhs;
 }
@@ -516,6 +531,7 @@ use overload
     '-'  => \&au_sub,
     '/'  => \&au_div,
     '*'  => \&au_mul,
+    '**' => \&au_mulmul,
     'eq' => \&au_eq,
     '""' => \&au_print;
 
@@ -562,6 +578,15 @@ sub au_mul {
     my ($lhs, $rhs) = @_;
 
     return bless { unit=>($lhs->{unit} * $rhs->{unit}) }, ref $lhs;
+}
+# }}}
+# au_mulmul {{{
+sub au_mulmul {
+    my ($lhs, $rhs) = @_;
+
+    croak "right hand side must be a scalar" if ref($rhs);
+
+    return bless { unit=>($lhs->{unit} ** $rhs) }, ref $lhs;
 }
 # }}}
 # au_div {{{
