@@ -5,3 +5,4 @@ t/05_skydiving.t
 Changes
 META.yml
 README
+t/10_metric.t
