@@ -1,5 +1,5 @@
 0.47:  Mon Jan 24 13:46:45 EST 2005
-   - jettero made PV understand leading spaces on physical values
+   - jettero made PV understand leading and trailing spaces better
 
 0.46:  Thu Jan 20 10:46:50 EST 2005
    - jettero added ** (exponent) support... how did I overlook that? Seriously.
