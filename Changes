@@ -1,3 +1,6 @@
+0.4:  Fri Jan 14 13:06:14 EST 2005
+   - jettero made a temporary fix for a Number::Format issue (ie poor handling of scientific notation) and also fixed a nasty bug in the unit regexp where capital letters went unrecognized.
+
 0.39:  Fri Jan 14 11:00:41 EST 2005
    - jettero added exponential matching to new (eg 1.99e3) ... woops.
 

@@ -20,7 +20,7 @@ use overload
     'eq' => \&pv_str_eq,
     '""' => \&pv_print;
 
-our $VERSION        = "0.39";
+our $VERSION        = "0.4";
 our $StrictTypes    = 0; # throws errors on unknown units
 our $PrintPrecision = 2; 
 our $fmt;
@@ -282,11 +282,20 @@ sub pv_num_gte {
 sub pv_print {
     my $this = shift;
     my ($v, $u) = @$this;
+    return "$v $u" if $PrintPrecision < 0;
 
-    # $v = bstr $v;
+    
+    my $f = join(" ", $fmt->format_number( $v, $PrintPrecision ), $u);
+    return "$v $u" if $f =~ m/^\S*e/;
+    return $f;
 
+    # temprary fix until I hear back from the Number::Format guy
+
+=cut
     return "$v $u" if $PrintPrecision < 0;
     return join(" ", $fmt->format_number( $v, $PrintPrecision ), $u);
+=cut
+
 }
 # }}}
 
@@ -465,10 +474,10 @@ sub new {
     my $unit  = shift;
     my $this  = bless {unit=>1}, $class;
 
-    if( $unit =~ m/[^a-z]/ ) {
+    if( $unit =~ m/[^a-zA-Z]/i ) {
         my %unities = ();
 
-        while( $unit =~ m/([a-z]+)/g ) {
+        while( $unit =~ m/([a-zA-Z]+)/g ) {
             my $xxu = "xx$1";
             unless( $unities{$xxu} ) {
                 $unities{$xxu} = symbols($xxu);
@@ -477,7 +486,7 @@ sub new {
 
         my $obj;
 
-        $unit =~ s/([a-z]+)/\$unities{"xx$1"}/g;
+        $unit =~ s/([a-zA-Z]+)/\$unities{"xx$1"}/g;
         $unit = "\$obj = $unit";
 
         eval $unit;
@@ -489,7 +498,7 @@ sub new {
 
         $this->{unit} = $obj;
 
-    } elsif( $unit =~ m/[a-z]/ ) {
+    } elsif( $unit =~ m/[a-zA-Z]/ ) {
         $this->{unit} = symbols("xx$unit");
 
     }
