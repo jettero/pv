@@ -1,0 +1,26 @@
+#!/bin/sh
+# $Id: Distro,v 1.1 2005/01/12 20:12:48 jettero Exp $
+
+./distclean
+perl Makefile.PL && make dist
+
+mkdir -p dist
+
+    n=`ls Net*gz`;
+    date=`date`;
+    cat IdentServer.pm | pod2html > ./dist/IdentServer.html
+    rm -vf pod* ./dist/Net*gz
+    mv -v Net*gz ./dist
+
+cat > ./dist/IdentServer.b.html << EOF
+<p>
+This (<a href="$n">$n</a>) is something I wrote for validating DSL users from behind a masq firewall.  Long story.
+Check out the man page: <a href="?eo_cat=IdentServer.html">Net::IdentServer module</a>.
+Last updated on $date
+EOF
+
+ssh mei.net "(cd /home/dillhome/voltar/html/PerlModules/; rm *Ident*)"
+(cd dist; chmod 644 *.html *.gz)
+scp -p dist/* mei.net:/home/dillhome/voltar/html/PerlModules/
+
+rm -rvf dist
