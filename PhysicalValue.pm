@@ -20,7 +20,7 @@ use overload
     'eq' => \&pv_str_eq,
     '""' => \&pv_print;
 
-our $VERSION        = "0.35";
+our $VERSION        = "0.36";
 our $StrictTypes    = 0; # throws errors on unknown units
 our $PrintPrecision = 2; 
 our $fmt;
@@ -410,6 +410,15 @@ remain GPL.  Any programs you (or your company) write shall
 remain yours (and under whatever copyright you choose) even
 if you use this package's intended and/or exported
 interfaces in them.
+
+=head1 TODO
+
+Here's a list of things I'd still like to do.  
+
+If you'd like to add a couple, please float me an email.
+
+1) Significant digit support
+2) Error interval support
 
 =head1 SPECIAL THANKS
 
