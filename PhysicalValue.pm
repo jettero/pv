@@ -359,7 +359,7 @@ sub sci {
     my $digits = shift;
     my ($v, $u) = @$this;
     my $e = 0;
-       $e = int( log($v) / log(10) ) unless $e == 0;
+       $e = int( log($v) / log(10) ) unless $v == 0;
 
     if( $u->{unit} == 1 ) {
         $u = "";
