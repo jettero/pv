@@ -11,9 +11,11 @@ use overload
     '/'  => \&pv_div,
     '++' => \&pv_inc,
     '--' => \&pv_dec,
+    '==' => \&pv_num_eq,
+    'eq' => \&pv_str_eq,
     '""' => \&pv_print;
 
-our $VERSION        = "0.31";
+our $VERSION        = "0.33";
 our $StrictTypes    = 0; # throws errors on unknown units
 our $PrintPrecision = 2; 
 our $fmt;
@@ -130,6 +132,24 @@ sub pv_dec {
     $this->[0] --;
     
     return $this;
+}
+# }}}
+
+# pv_str_eq {{{
+sub pv_str_eq {
+    my ($lhs, $rhs) = @_;
+
+    return "$lhs" eq "$rhs";
+}
+# }}}
+# pv_num_eq {{{
+sub pv_str_eq {
+    my ($lhs, $rhs) = @_;
+
+    $lhs = "$lhs"; $lhs =~ s/[^\d\.\-]//g;
+    $rhs = "$rhs"; $rhs =~ s/[^\d\.\-]//g;
+
+    return $lhs == $rhs;
 }
 # }}}
 
