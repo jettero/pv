@@ -1,3 +1,6 @@
+0.43:  Fri Jan 14 15:49:40 EST 2005
+   - jettero added the deunit() function
+
 0.42:  Fri Jan 14 15:34:38 EST 2005
    - jettero improved the number formatting for huge numbers
 

@@ -20,7 +20,7 @@ use overload
     'eq' => \&pv_str_eq,
     '""' => \&pv_print;
 
-our $VERSION        = "0.42";
+our $VERSION        = "0.43";
 our $StrictTypes    = 0; # throws errors on unknown units
 our $PrintPrecision = 2; 
 our $fmt;
@@ -64,6 +64,13 @@ sub new {
     }
 
     return $this;
+}
+# }}}
+# deunit {{{
+sub deunit {
+    my $this = shift;
+
+    return $this->[0];
 }
 # }}}
 
@@ -403,6 +410,11 @@ lastly, you can set all sorts of format settings like so:
                                 -int_curr_symbol => 'DEM');
 
 Though, at this time, there's no way to change which format function it uses.
+
+=head2 deunit()
+
+If you want to get the numerical value back out, you can use deunit();
+    my $v = deunit PV("8 miles"); # makes $v = 8;
 
 =head1 AUTHOR
 
