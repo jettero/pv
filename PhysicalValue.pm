@@ -2,7 +2,7 @@ package Math::Units::PhysicalValue;
 
 use strict;
 use Carp;
-use base qw(Exporter); our @EXPORT_OK = qw(PV);
+use base qw(Exporter); 
 use Math::Units qw(convert);
 use Number::Format;
 use overload 
@@ -29,6 +29,16 @@ our $fmt;
 
 1;
 
+our @EXPORT_OK = qw(PV G);
+# constants {{{
+# I'm going to build up a library of these before I go anywhere near documenting them.
+# If you find this, and would like to contribute, email me.
+
+# Though, this interface could be a really stupid idea and I might take it out entirely.
+
+sub G { Math::Units::PhysicalValue->new( "6.672e-11 N m^2 / kg^2" ) }
+
+# }}}
 # PV {{{
 sub PV {
     my $v = shift;
@@ -36,17 +46,20 @@ sub PV {
     return Math::Units::PhysicalValue->new( $v );
 }
 # }}}
+
 # new {{{
 sub new {
     my $class = shift;
     my $value = shift;
     my $this  = bless [], $class;
 
-    if( $value =~ m/^([\-\,\.\de]+)\s*(\S*)$/ ) {
+    if( $value =~ m/^([\-\,\.\de]+)\s*([\s\w\^\d\.\/\*]*)$/ ) {
         my ($v, $u) = ($1, $2);
 
         $v =~ s/\,//g;
         $u =~ s/\^/**/g;
+        $u =~ s/(\w+(?:\*\*\d+)?)\s+(\w+(?:\*\*\d+)?)/$1*$2/g;
+        $u =~ s/\s//g;
 
         if ( $StrictTypes ) {
             eval { convert(3.1415926, $u, '') };
