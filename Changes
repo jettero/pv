@@ -1,5 +1,6 @@
 0.44:  Fri Jan 14 16:04:30 EST 2005
    - jettero added reduction to scalar support ... I thought that was working. I guess thats what the tests are for.
+     (well, they were, but they were a touch flakey in spots)
 
 0.43:  Fri Jan 14 15:49:40 EST 2005
    - jettero added the deunit() function

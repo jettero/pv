@@ -296,13 +296,19 @@ sub pv_print {
     my $this = shift;
     my ($v, $u) = @$this;
 
-    return "$v $u" if $PrintPrecision < 0;
+    if( $u->{unit} == 1 ) {
+        $u = "";
+    } else {
+        $u = " $u";
+    }
+
+    return $v . $u if $PrintPrecision < 0;
 
     # temprary fix until I hear back from the Number::Format guy
 
-    my $f = join(" ", $fmt->format_number( $v, $PrintPrecision ), $u);
+    my $f = join('', $fmt->format_number( $v, $PrintPrecision ), $u);
     if( $f =~ m/^\S*e/ ) {
-        $f = "$v $u";
+        $f = $v . $u;
         $f =~ s/e\+(\d+)/e$1/g;
         $f =~ s/^([\.\-\d]+)(?=e)/$fmt->format_number( $1, $PrintPrecision )/e if $PrintPrecision >= 0;
     }
@@ -315,6 +321,26 @@ sub pv_print {
     return join(" ", $fmt->format_number( $v, $PrintPrecision ), $u);
 =cut
 
+}
+# }}}
+# sci {{{
+sub sci {
+    my $this   = shift;
+    my $digits = shift;
+    my ($v, $u) = @$this;
+    my $e = int( log($v) / log(10) );
+
+    if( $u->{unit} == 1 ) {
+        $u = "";
+    } else {
+        $u = " $u";
+    }
+
+    croak "please use 0 or more sigfigs..." if $digits < 0;
+
+    $v = $fmt->format_number($v / (10 ** $e), $digits-1) . "e$e";
+
+    return $v . $u;
 }
 # }}}
 
@@ -414,6 +440,7 @@ Though, at this time, there's no way to change which format function it uses.
 =head2 deunit()
 
 If you want to get the numerical value back out, you can use deunit();
+
     my $v = deunit PV("8 miles"); # makes $v = 8;
 
 =head1 AUTHOR
