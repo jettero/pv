@@ -5,3 +5,4 @@ distclean
 makeitfromscratch
 Distro
 MANIFEST.SKIP
+installhere
