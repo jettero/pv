@@ -1,0 +1,7 @@
+#!/bin/sh
+# $Id: makeitfromscratch,v 1.1 2005/01/12 20:12:48 jettero Exp $
+
+./distclean
+perl Makefile.PL
+make
+

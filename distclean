@@ -1,0 +1,12 @@
+#!/bin/sh
+# $Id: distclean,v 1.1 2005/01/12 20:12:48 jettero Exp $
+
+perl Makefile.PL
+make metafile
+make distclean
+
+rm -vf identserver.{pid,log}
+
+if [ -d ~/.jbash ]; then
+    ~/.jbash/jbin/ka identd
+fi
