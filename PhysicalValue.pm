@@ -20,7 +20,7 @@ use overload
     'eq' => \&pv_str_eq,
     '""' => \&pv_print;
 
-our $VERSION        = "0.38";
+our $VERSION        = "0.39";
 our $StrictTypes    = 0; # throws errors on unknown units
 our $PrintPrecision = 2; 
 our $fmt;
@@ -41,7 +41,7 @@ sub new {
     my $value = shift;
     my $this  = bless [], $class;
 
-    if( $value =~ m/^([\-\,\.\d]+)\s*(\S*)$/ ) {
+    if( $value =~ m/^([\-\,\.\de]+)\s*(\S*)$/ ) {
         my ($v, $u) = ($1, $2);
 
         $v =~ s/\,//g;
