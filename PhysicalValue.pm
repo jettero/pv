@@ -12,6 +12,10 @@ use overload
     '++' => \&pv_inc,
     '--' => \&pv_dec,
     '==' => \&pv_num_eq,
+    '<'  => \&pv_num_lt,
+    '>'  => \&pv_num_gt,
+    '<=' => \&pv_num_lte,
+    '>=' => \&pv_num_gte,
     'eq' => \&pv_str_eq,
     '""' => \&pv_print;
 
@@ -38,8 +42,8 @@ sub new {
             eval { convert(3.1415926, $u, '') };
             if( $@ =~ /unknown unit/ ) {
                 my $e = $@;
-                $@ =~ s/ at PhysicalValue.*//s;
-                croak $@;
+                $e =~ s/ at .*PhysicalValue.*//s;
+                croak $e;
             }
         }
 
@@ -67,9 +71,9 @@ sub pv_add {
 
     if( $@ ) {
         my $e = $@;
-        $@ =~ s/'1'/''/;
-        $@ =~ s/ at PhysicalValue.*//s;
-        croak $@;
+        $e =~ s/'1'/''/;
+        $e =~ s/ at .*PhysicalValue.*//s;
+        croak $e;
     }
 
     $v += $rhs->[0];
@@ -139,17 +143,129 @@ sub pv_dec {
 sub pv_str_eq {
     my ($lhs, $rhs) = @_;
 
+    $rhs = ref($lhs)->new($rhs) unless ref $rhs eq ref $lhs;
+
+    my $v;
+    eval {
+        $v = convert(@$rhs, $lhs->[1]);
+    };
+
+    $rhs->[0] = $v;
+    $rhs->[1] = $lhs->[1];
+
+    if( $@ ) {
+        my $e = $@;
+        $e =~ s/'1'/''/;
+        $e =~ s/ at .*PhysicalValue.*//s;
+        croak $e;
+    }
+
     return "$lhs" eq "$rhs";
 }
 # }}}
 # pv_num_eq {{{
-sub pv_str_eq {
+sub pv_num_eq {
     my ($lhs, $rhs) = @_;
 
-    $lhs = "$lhs"; $lhs =~ s/[^\d\.\-]//g;
-    $rhs = "$rhs"; $rhs =~ s/[^\d\.\-]//g;
+    $rhs = ref($lhs)->new($rhs) unless ref $rhs eq ref $lhs;
 
-    return $lhs == $rhs;
+    my $v;
+    eval {
+        $v = convert(@$rhs, $lhs->[1]);
+    };
+
+    if( $@ ) {
+        my $e = $@;
+        $e =~ s/'1'/''/;
+        $e =~ s/ at .*PhysicalValue.*//s;
+        croak $e;
+    }
+
+    return $lhs->[0] == $v;
+}
+# }}}
+# pv_num_lt {{{
+sub pv_num_lt {
+    my ($lhs, $rhs) = @_;
+
+    $rhs = ref($lhs)->new($rhs) unless ref $rhs eq ref $lhs;
+
+    my $v;
+    eval {
+        $v = convert(@$rhs, $lhs->[1]);
+    };
+
+    if( $@ ) {
+        my $e = $@;
+        $e =~ s/'1'/''/;
+        $e =~ s/ at .*PhysicalValue.*//s;
+        croak $e;
+    }
+
+    return $lhs->[0] < $v;
+}
+# }}}
+# pv_num_gt {{{
+sub pv_num_gt {
+    my ($lhs, $rhs) = @_;
+
+    $rhs = ref($lhs)->new($rhs) unless ref $rhs eq ref $lhs;
+
+    my $v;
+    eval {
+        $v = convert(@$rhs, $lhs->[1]);
+    };
+
+    if( $@ ) {
+        my $e = $@;
+        $e =~ s/'1'/''/;
+        $e =~ s/ at .*PhysicalValue.*//s;
+        croak $e;
+    }
+
+    return $lhs->[0] > $v;
+}
+# }}}
+# pv_num_lte {{{
+sub pv_num_lte {
+    my ($lhs, $rhs) = @_;
+
+    $rhs = ref($lhs)->new($rhs) unless ref $rhs eq ref $lhs;
+
+    my $v;
+    eval {
+        $v = convert(@$rhs, $lhs->[1]);
+    };
+
+    if( $@ ) {
+        my $e = $@;
+        $e =~ s/'1'/''/;
+        $e =~ s/ at .*PhysicalValue.*//s;
+        croak $e;
+    }
+
+    return $lhs->[0] <= $v;
+}
+# }}}
+# pv_num_gte {{{
+sub pv_num_gte {
+    my ($lhs, $rhs) = @_;
+
+    $rhs = ref($lhs)->new($rhs) unless ref $rhs eq ref $lhs;
+
+    my $v;
+    eval {
+        $v = convert(@$rhs, $lhs->[1]);
+    };
+
+    if( $@ ) {
+        my $e = $@;
+        $e =~ s/'1'/''/;
+        $e =~ s/ at .*PhysicalValue.*//s;
+        croak $e;
+    }
+
+    return $lhs->[0] >= $v;
 }
 # }}}
 
