@@ -1,3 +1,2 @@
 Makefile.PL
 PhysicalValue.pm
-t/01_load.t
