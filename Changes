@@ -1,3 +1,6 @@
+0.34:  Wed Jan 12 16:27:12 EST 2005
+   - jettero added some equivalence overloads
+
 0.33:  Wed Jan 12 15:21:46 EST 2005
    - jettero add some num/str eq overloads
 
