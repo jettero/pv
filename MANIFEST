@@ -4,3 +4,4 @@ t/01_load.t
 t/05_skydiving.t
 Changes
 META.yml
+README
