@@ -20,7 +20,7 @@ use overload
     'eq' => \&pv_str_eq,
     '""' => \&pv_print;
 
-our $VERSION        = "0.37";
+our $VERSION        = "0.38";
 our $StrictTypes    = 0; # throws errors on unknown units
 our $PrintPrecision = 2; 
 our $fmt;
@@ -45,6 +45,7 @@ sub new {
         my ($v, $u) = ($1, $2);
 
         $v =~ s/\,//g;
+        $u =~ s/\^/**/g;
 
         if ( $StrictTypes ) {
             eval { convert(3.1415926, $u, '') };
@@ -419,6 +420,11 @@ If you'd like to add a couple, please float me an email.
 
 1) Significant digit support
 2) Error interval support
+*) Better handling of metric units (e.g, 3g == 0.003kg == 3000mg)
+
+Concerning metric units, I expected them to work much worse than they do.  In
+fact, they appear to function correctly.  If you can produce and examples of
+failures, please let me know.  For now I'm going to assume they work.
 
 =head1 SPECIAL THANKS
 
