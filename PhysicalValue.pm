@@ -6,22 +6,23 @@ use base qw(Exporter);
 use Math::Units qw(convert);
 use Number::Format;
 use overload 
-    '+'  => \&pv_add,
-    '*'  => \&pv_mul,
-    '**' => \&pv_mulmul,
-    '-'  => \&pv_sub,
-    '/'  => \&pv_div,
-    '++' => \&pv_inc,
-    '--' => \&pv_dec,
-    '==' => \&pv_num_eq,
-    '<'  => \&pv_num_lt,
-    '>'  => \&pv_num_gt,
-    '<=' => \&pv_num_lte,
-    '>=' => \&pv_num_gte,
-    'eq' => \&pv_str_eq,
-    '""' => \&pv_print;
+    '+'    => \&pv_add,
+    '*'    => \&pv_mul,
+    '**'   => \&pv_mulmul,
+    '-'    => \&pv_sub,
+    '/'    => \&pv_div,
+    '++'   => \&pv_inc,
+    '--'   => \&pv_dec,
+    '=='   => \&pv_num_eq,
+    '<'    => \&pv_num_lt,
+    '>'    => \&pv_num_gt,
+    '<='   => \&pv_num_lte,
+    '>='   => \&pv_num_gte,
+    'eq'   => \&pv_str_eq,
+    '""'   => \&pv_print,
+    'bool' => \&pv_bool;
 
-our $VERSION        = "0.48";
+our $VERSION        = "0.49";
 our $StrictTypes    = 0; # throws errors on unknown units
 our $PrintPrecision = 2; 
 our $fmt;
@@ -351,6 +352,14 @@ sub pv_print {
     return join(" ", $fmt->format_number( $v, $PrintPrecision ), $u);
 =cut
 
+}
+# }}}
+# pv_bool {{{
+sub pv_bool {
+    my $this = shift;
+    my ($v, $u) = @$this;
+
+    return $v;
 }
 # }}}
 # sci {{{
