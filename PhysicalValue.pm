@@ -297,6 +297,7 @@ sub pv_print {
     if( $f =~ m/^\S*e/ ) {
         $f = "$v $u";
         $f =~ s/e\+(\d+)/e$1/g;
+        $f =~ s/^([\.\-\d]+)(?=e)/$fmt->format_number( $1, $PrintPrecision )/e if $PrintPrecision >= 0;
     }
     return $f;
 
