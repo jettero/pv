@@ -8,3 +8,4 @@ README
 t/10_metric.t
 t/15_exponents.t
 t/20_longBIGfloats.t
+t/25_scalar_reductions.t
