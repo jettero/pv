@@ -1,3 +1,6 @@
+0.49:  Thu Feb 10 11:06:09 EST 2005
+   - jettero added boolean support
+
 0.48:  Mon Jan 31 07:06:15 EST 2005
    - jettero fixed a log(0) bug in the &sci function.
 
