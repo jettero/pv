@@ -10,3 +10,4 @@ t/15_exponents.t
 t/20_longBIGfloats.t
 t/25_scalar_reductions.t
 t/30_sigfigs.t
+t/35_powers.t

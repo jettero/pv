@@ -1,3 +1,6 @@
+0.46:  Thu Jan 20 10:46:50 EST 2005
+   - jettero added ** (exponent) support... how did I overlook that? Seriously.
+
 0.45:  Sun Jan 16 10:26:51 EST 2005
    - jettero added a stupid sci() to return huge numbers in exponential format
 
