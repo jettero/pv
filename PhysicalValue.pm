@@ -53,6 +53,8 @@ sub new {
     my $value = shift;
     my $this  = bless [], $class;
 
+    $value = 0 unless defined $value;
+
     if( $value =~ m/^\s*([\-\,\.\de]+)\s*([\s\w\^\d\.\/\*]*)$/ ) {
         my ($v, $u) = ($1, $2);
 
