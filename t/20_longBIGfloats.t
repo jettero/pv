@@ -1,6 +1,7 @@
 # vi:fdm=marker fdl=0 syntax=perl:
-# $Id: 20_longBIGfloats.t,v 1.2 2005/01/14 20:36:36 jettero Exp $
+# $Id: 20_longBIGfloats.t,v 1.3 2005/01/16 15:23:07 jettero Exp $
 
+use strict;
 use Test;
 
 plan tests => 1;

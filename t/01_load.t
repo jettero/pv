@@ -1,6 +1,7 @@
 # vi:fdm=marker fdl=0 syntax=perl:
-# $Id: 01_load.t,v 1.2 2005/01/14 20:49:40 jettero Exp $
+# $Id: 01_load.t,v 1.3 2005/01/16 15:23:07 jettero Exp $
 
+use strict;
 use Test;
 
 plan tests => 2;

@@ -20,7 +20,7 @@ use overload
     'eq' => \&pv_str_eq,
     '""' => \&pv_print;
 
-our $VERSION        = "0.44";
+our $VERSION        = "0.45";
 our $StrictTypes    = 0; # throws errors on unknown units
 our $PrintPrecision = 2; 
 our $fmt;
@@ -478,7 +478,7 @@ Here's a list of things I'd still like to do.
 
 If you'd like to add a couple, please float me an email.
 
-1) Significant digit support
+1) Significant digit support (until it's done, there is $value->sci( $digits ))
 2) Error interval support
 *) Better handling of metric units (e.g, 3g == 0.003kg == 3000mg)
 
