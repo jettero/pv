@@ -21,7 +21,7 @@ use overload
     'eq' => \&pv_str_eq,
     '""' => \&pv_print;
 
-our $VERSION        = "0.47";
+our $VERSION        = "0.48";
 our $StrictTypes    = 0; # throws errors on unknown units
 our $PrintPrecision = 2; 
 our $fmt;
@@ -358,7 +358,8 @@ sub sci {
     my $this   = shift;
     my $digits = shift;
     my ($v, $u) = @$this;
-    my $e = int( log($v) / log(10) );
+    my $e = 0;
+       $e = int( log($v) / log(10) ) unless $e == 0;
 
     if( $u->{unit} == 1 ) {
         $u = "";
