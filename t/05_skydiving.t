@@ -1,5 +1,5 @@
 # vi:fdm=marker fdl=0 syntax=perl:
-# $Id: 05_skydiving.t,v 1.3 2005/01/16 15:23:07 jettero Exp $
+# $Id: 05_skydiving.t,v 1.4 2005/01/24 18:47:44 jettero Exp $
 
 use strict;
 use Test;
@@ -9,7 +9,7 @@ plan tests => 9;
 use Math::Units::PhysicalValue;
 
 # A typical jump
-my $exit  = new Math::Units::PhysicalValue "10,000 ft";
+my $exit  = new Math::Units::PhysicalValue "    10,000 ft    ";
 my $open  = "3500 ft";
 my $delay = "43 s";
 
