@@ -6,3 +6,4 @@ Changes
 META.yml
 README
 t/10_metric.t
+t/15_exponents.t
