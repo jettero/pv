@@ -22,9 +22,10 @@ use overload
     '""'   => \&pv_print,
     'bool' => \&pv_bool;
 
-our $VERSION        = "0.5";
-our $StrictTypes    = 0; # throws errors on unknown units
-our $PrintPrecision = 2; 
+our $VERSION          = "0.50";
+our $StrictTypes      = 0; # throws errors on unknown units
+our $PrintPrecision   = 2; 
+our %SingularRewrites = ();
 our $fmt;
     $fmt = new Number::Format if not defined $fmt;
 
@@ -42,9 +43,29 @@ sub G { Math::Units::PhysicalValue->new( "6.672e-11 N m^2 / kg^2" ) }
 # }}}
 # PV {{{
 sub PV {
-    my $v = shift;
+    my $in = shift;
 
-    return Math::Units::PhysicalValue->new( $v );
+    if( $in =~ m/^(\d+)\s*(\w+)\(((?:es|s|ii))\)$/ ) {
+        my ($v, $u, $p) = ($1, $2, $3);
+
+        if( $p eq "s" or $p eq "es" ) {
+            $p = $u . $p;
+
+        } else {
+            if( $u =~ m/^(.+)us$/ ) {
+                $p = "$1$p";
+
+            } else {
+                croak "plural-looking unit passed to PV(\"$in\") was not understood";
+            }
+        }
+
+        $SingularRewrites{$p} = $u;
+
+        $in = "$v $p";
+    }
+
+    return Math::Units::PhysicalValue->new( $in );
 }
 # }}}
 
@@ -327,10 +348,14 @@ sub pv_print {
     my $this = shift;
     my ($v, $u) = @$this;
 
-    if( $u->{unit} == 1 ) {
+    if( $u->{unit} == 1 ) { # $u->{unit} has $xx prefixed as an artifact of the algebra package use
         $u = "";
+
+    } elsif( $v == 1 and (my $singular = $SingularRewrites{$u}) ) {
+        $u = " $singular";
+
     } else {
-        $u = " $u";
+        $u = " $u"; # typecasting the unit to a string to de $xx the unit
     }
 
     return $v . $u if $PrintPrecision < 0;
