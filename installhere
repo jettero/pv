@@ -1,5 +1,5 @@
 #!/bin/sh
-# $Id: installhere,v 1.1 2005/01/14 20:36:36 jettero Exp $
+# $Id: installhere,v 1.2 2005/08/22 16:04:38 jettero Exp $
 
 ./makeitfromscratch || exit 1
 make || exit 1
