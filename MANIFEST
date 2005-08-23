@@ -13,4 +13,3 @@ t/30_sigfigs.t
 t/35_powers.t
 t/40_some_standard_values.t
 t/45_boolean.t
-t/50_crazy_unit_plurals.t
