@@ -22,7 +22,7 @@ use overload
     '""'   => \&pv_print,
     'bool' => \&pv_bool;
 
-our $VERSION        = "0.5";
+our $VERSION        = "0.50";
 our $StrictTypes    = 0; # throws errors on unknown units
 our $PrintPrecision = 2; 
 our $fmt;

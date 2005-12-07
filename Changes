@@ -1,3 +1,6 @@
+0.5:  Wed Dec  7 16:18:26 EST 2005
+   - jettero added the scalar-0 hack
+
 0.49:  Thu Feb 10 11:06:09 EST 2005
    - jettero added boolean support (eg, print "no mass!\n" unless PV("0 g"))
 
