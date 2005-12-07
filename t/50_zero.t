@@ -1,10 +1,10 @@
 # vi:fdm=marker fdl=0 syntax=perl:
-# $Id: 50_zero.t,v 1.2 2005/12/07 21:07:36 jettero Exp $
+# $Id: 50_zero.t,v 1.3 2005/12/07 21:08:00 jettero Exp $
 
 use strict;
 use Test;
 
-plan tests => 3;
+plan tests => 4;
 
 use Math::Units::PhysicalValue qw(PV);
 

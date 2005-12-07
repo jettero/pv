@@ -1,5 +1,5 @@
 # vi:fdm=marker fdl=0 syntax=perl:
-# $Id: 55_exponents.t,v 1.2 2005/12/07 21:07:36 jettero Exp $
+# $Id: 55_exponents.t,v 1.3 2005/12/07 21:08:00 jettero Exp $
 
 use strict;
 use Test;
@@ -15,6 +15,7 @@ my $Rs  = PV "432,469 miles"; # radius of sun
 my $Te4 = (($Ts**4 * $Rs**2) / (4*$earth_orbit**2));
 
 my $Te;
-eval q( $Te = $Te4 ** (1/4); ); ok( not $@ );
+eval q( $Te = $Te4 ** (1/4); ); 
 
+ok( not $@ );
 ok( $Te, "something..." );

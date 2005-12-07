@@ -520,6 +520,8 @@ If you'd like to add a couple, please float me an email.
 
 1) Significant digit support (until it's done, there is $value->sci( $digits ))
 2) Error interval support
+3) PV(0) + PV("9 m/s") should not cause an error imo
+4) (PV("7 m/s") ** 9) ** (1/9) should produce '7 m/s', not an error
 *) Better handling of metric units (e.g, 3g == 0.003kg == 3000mg)
 
 Concerning metric units, I expected them to work much worse than they do.  In
