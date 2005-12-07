@@ -22,7 +22,7 @@ use overload
     '""'   => \&pv_print,
     'bool' => \&pv_bool;
 
-our $VERSION        = "0.49";
+our $VERSION        = "0.5";
 our $StrictTypes    = 0; # throws errors on unknown units
 our $PrintPrecision = 2; 
 our $fmt;
@@ -95,7 +95,7 @@ sub deunit {
 sub pv_add {
     my ($lhs, $rhs) = @_; 
     
-    $rhs = ref($lhs)->new($rhs) unless ref $rhs eq ref $lhs;
+    $rhs = ref($lhs)->new($rhs eq "0" ? "0 $lhs->[1]" : $rhs) unless ref $rhs eq ref $lhs;
 
     my $v; 
     eval {
@@ -161,7 +161,7 @@ sub pv_div {
 sub pv_sub {
     my ($lhs, $rhs) = @_;
 
-    $rhs = ref($lhs)->new($rhs) unless ref $rhs eq ref $lhs;
+    $rhs = ref($lhs)->new($rhs eq "0" ? "0 $lhs->[1]" : $rhs) unless ref $rhs eq ref $lhs;
 
     return $lhs->pv_add( $rhs->pv_mul(-1) );
 }
@@ -482,6 +482,19 @@ Though, at this time, there's no way to change which format function it uses.
 If you want to get the numerical value back out, you can use deunit();
 
     my $v = deunit PV("8 miles"); # makes $v = 8;
+
+=head1 0 + PV or 0 - PV
+
+I introduced a special hack on 12/7/5 to allow you to add ANY PV
+unit to 0 iff 0 had no units previously.  That is:
+
+    my $v = 0 + PV("3 ft"); # sets $v = PV("3 ft");
+
+This functions by converting the scalar 0 to 0 ft before adding.
+If you wish to make sure to raise an error on addition to 0,
+choose to PV the 0 first.
+
+   my $v = PV(0) + PV("3 ft"); # will still raise an error
 
 =head1 AUTHOR
 
