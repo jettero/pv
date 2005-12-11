@@ -1,3 +1,6 @@
+0.51:  Sun Dec 11 08:28:15 EST 2005
+   - jettero added sqrt overloads...
+
 0.50:  Wed Dec  7 16:18:26 EST 2005
    - jettero added the scalar-0 hack
 

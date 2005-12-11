@@ -1,10 +1,10 @@
 # vi:fdm=marker fdl=0 syntax=perl:
-# $Id: 35_powers.t,v 1.1 2005/01/20 15:46:25 jettero Exp $
+# $Id: 35_powers.t,v 1.2 2005/12/11 13:28:16 jettero Exp $
 
 use strict;
 use Test;
 
-plan tests => 1;
+plan tests => 2;
 
 use Math::Units::PhysicalValue "PV";
 
@@ -14,4 +14,12 @@ TEST1: {
     $time = $time ** 2;
 
     ok( "$time", "1,024 s^2" );
+}
+
+TEST2: {
+    my $time = PV "9 s^2";
+
+    $time = sqrt( $time );
+
+    ok( "$time", "3 s" );
 }
