@@ -9,6 +9,7 @@ use overload
     '+'    => \&pv_add,
     '*'    => \&pv_mul,
     '**'   => \&pv_mulmul,
+    'sqrt' => \&pv_sqrt,
     '-'    => \&pv_sub,
     '/'    => \&pv_div,
     '++'   => \&pv_inc,
@@ -22,7 +23,7 @@ use overload
     '""'   => \&pv_print,
     'bool' => \&pv_bool;
 
-our $VERSION        = "0.50";
+our $VERSION        = "0.51";
 our $StrictTypes    = 0; # throws errors on unknown units
 our $PrintPrecision = 2; 
 our $fmt;
@@ -138,6 +139,18 @@ sub pv_mulmul {
 
     $v = $v ** $rhs;
     $u = $u ** $rhs;
+
+    return bless [ $v, $u ], ref $lhs;
+}
+# }}}
+# pv_sqrt {{{
+sub pv_sqrt {
+    my ($lhs) = @_; 
+
+    my ($v, $u) = (@$lhs);
+
+    $v = sqrt( $v );
+    $u = sqrt( $u );
 
     return bless [ $v, $u ], ref $lhs;
 }
@@ -572,6 +585,7 @@ use overload
     '/'  => \&au_div,
     '*'  => \&au_mul,
     '**' => \&au_mulmul,
+  'sqrt' => \&au_sqrt,
     'eq' => \&au_eq,
     '""' => \&au_print;
 
@@ -627,6 +641,13 @@ sub au_mulmul {
     croak "right hand side must be a scalar" if ref($rhs);
 
     return bless { unit=>($lhs->{unit} ** $rhs) }, ref $lhs;
+}
+# }}}
+# au_sqrt {{{
+sub au_sqrt {
+    my ($lhs) = @_;
+
+    return bless { unit=>sqrt($lhs->{unit}) }, ref $lhs;
 }
 # }}}
 # au_div {{{
