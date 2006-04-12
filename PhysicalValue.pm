@@ -20,10 +20,11 @@ use overload
     '<='   => \&pv_num_lte,
     '>='   => \&pv_num_gte,
     'eq'   => \&pv_str_eq,
+    'ne'   => \&pv_str_ne,
     '""'   => \&pv_print,
     'bool' => \&pv_bool;
 
-our $VERSION        = "0.51";
+our $VERSION        = "0.52";
 our $StrictTypes    = 0; # throws errors on unknown units
 our $PrintPrecision = 2; 
 our $fmt;
@@ -221,6 +222,30 @@ sub pv_str_eq {
     }
 
     return "$lhs" eq "$rhs";
+}
+# }}}
+# pv_str_ne {{{
+sub pv_str_ne {
+    my ($lhs, $rhs) = @_;
+
+    $rhs = ref($lhs)->new($rhs) unless ref $rhs eq ref $lhs;
+
+    my $v;
+    eval {
+        $v = convert(@$rhs, $lhs->[1]);
+    };
+
+    $rhs->[0] = $v;
+    $rhs->[1] = $lhs->[1];
+
+    if( $@ ) {
+        my $e = $@;
+        $e =~ s/'1'/''/;
+        $e =~ s/ at .*PhysicalValue.*//s;
+        croak $e;
+    }
+
+    return "$lhs" ne "$rhs";
 }
 # }}}
 # pv_num_eq {{{

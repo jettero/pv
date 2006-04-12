@@ -1,3 +1,6 @@
+0.52:  Wed Apr 12 13:31:27 EDT 2006
+   - jettero added pv_str_ne
+
 0.51:  Sun Dec 11 08:28:15 EST 2005
    - jettero added sqrt overloads...  How did I not have this before?
 
