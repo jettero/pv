@@ -22,9 +22,11 @@ use overload
     'eq'   => \&pv_str_eq,
     'ne'   => \&pv_str_ne,
     '""'   => \&pv_print,
+    '<=>'  => \&pv_ncmp,
+    'cmp'  => \&pv_scmp,
     'bool' => \&pv_bool;
 
-our $VERSION        = "0.52";
+our $VERSION        = "0.53";
 our $StrictTypes    = 0; # throws errors on unknown units
 our $PrintPrecision = 2; 
 our $fmt;
@@ -398,6 +400,24 @@ sub pv_bool {
     my ($v, $u) = @$this;
 
     return $v;
+}
+# }}}
+# pv_ncmp {{{
+sub pv_ncmp {
+    my ($lhs, $rhs) = @_;
+
+    return -1 if $lhs < $rhs;
+    return  1 if $lhs > $rhs;
+    return 0;
+}
+# }}}
+# pv_scmp {{{
+sub pv_scmp {
+    my ($lhs, $rhs) = @_;
+
+    return -1 if "$lhs" lt "$rhs";
+    return  1 if "$lhs" gt "$rhs";
+    return 0;
 }
 # }}}
 # sci {{{
