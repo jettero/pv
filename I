@@ -21,7 +21,7 @@ if [ -f $p ]; then
     rm $p.bak
     vi $p -c "set tw=800" -s format.scr
     clear
-    head -20 $p
+    head -n 20 $p
 fi
 
 
