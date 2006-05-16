@@ -1,5 +1,6 @@
 0.53:  Tue May 16 10:45:25 EDT 2006
-   - jettero added numeric and string comparison overloads. How were these not in here before? Has nobody sorted a PV? I certainly didn't...
+   - jettero added numeric and string comparison overloads. How were these not
+     in here before? Has nobody sorted a PV? I certainly didn't...
 
 0.52:  Wed Apr 12 13:31:27 EDT 2006
    - jettero added pv_str_ne
@@ -26,8 +27,9 @@
    - jettero added a stupid sci() to return huge numbers in exponential format
 
 0.44:  Fri Jan 14 16:04:30 EST 2005
-   - jettero added reduction to scalar support ... I thought that was working. I guess thats what the tests are for.
-     (well, they were, but they were a touch flakey in spots)
+   - jettero added reduction to scalar support ... I thought that was working.
+     I guess thats what the tests are for.  (well, they were, but they were a
+     touch flakey in spots)
 
 0.43:  Fri Jan 14 15:49:40 EST 2005
    - jettero added the deunit() function
@@ -39,7 +41,9 @@
    - jettero found some exponent related bugs
 
 0.4:  Fri Jan 14 13:06:14 EST 2005
-   - jettero made a temporary fix for a Number::Format issue (ie poor handling of scientific notation) and also fixed a nasty bug in the unit regexp where capital letters went unrecognized.
+   - jettero made a temporary fix for a Number::Format issue (ie poor handling
+     of scientific notation) and also fixed a nasty bug in the unit regexp
+     where capital letters went unrecognized.
 
 0.39:  Fri Jan 14 11:00:41 EST 2005
    - jettero added exponential matching to new (eg 1.99e3) ... woops.
