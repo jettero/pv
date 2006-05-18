@@ -1,5 +1,6 @@
 0.66:  Wed May 17 21:08:59 EDT 2006
-   - jettero added limited support for auto plurals
+   - jettero added limited support for auto plurals ... the interface may well
+     change, but I'm happy with it for now.
 
 0.53:  Tue May 16 10:45:25 EDT 2006
    - jettero added numeric and string comparison overloads. How were these not
