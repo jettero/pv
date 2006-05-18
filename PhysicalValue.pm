@@ -26,16 +26,22 @@ use overload
     'cmp'  => \&pv_scmp,
     'bool' => \&pv_bool;
 
-our $VERSION        = "0.65";
+our $VERSION        = "0.66";
 our $StrictTypes    = 0; # throws errors on unknown units
 our $PrintPrecision = 2; 
 our $fmt;
     $fmt = new Number::Format if not defined $fmt;
 
+our @EXPORT_OK = qw(PV G);
+our @AUTO_PLURALS = ();
+
+# NOTE:  AUTO_PLURALS and G are not documented because they are still experimental
+
 1;
 
-our @EXPORT_OK = qw(PV);
-
+# constants {{{
+sub G { Math::Units::PhysicalValue->new( "6.672e-11 N m^2 / kg^2" ) }
+# }}}
 # PV {{{
 sub PV {
     my $v = shift;
@@ -51,8 +57,6 @@ sub new {
     my $this  = bless [], $class;
 
     $value = 0 unless defined $value;
-
-    my $s_plural = ($value =~ s/(?<=\w)\(s\)$// ? 1:0);
 
     if( $value =~ m/^\s*([\-\,\.\de]+)\s*([\s\w\^\d\.\/\*]*)$/ ) {
         my ($v, $u) = ($1, $2);
@@ -71,9 +75,10 @@ sub new {
             }
         }
 
+        $u =~ s/\b$_->[1]\b/$_->[0]/sg for @AUTO_PLURALS;
+
         $this->[0] = $v;
         $this->[1] = new Math::Units::PhysicalValue::AutoUnit $u;
-        $this->[1]->{sp} = qr/^\Q$u\E(?:s)?$/ if $s_plural;
 
     } else {
         croak "value passed to PhysicalValue->new(\"$value\") was not understood";
@@ -98,7 +103,7 @@ sub pv_add {
 
     my $v; 
     eval {
-        $v = ($lhs->[1] ne $rhs->[1] ? convert(@$lhs, $rhs->[1]) : $lhs->[0]);
+        $v = convert(@$lhs, $rhs->[1]);
     };
 
     if( $@ ) {
@@ -205,7 +210,7 @@ sub pv_str_eq {
 
     my $v;
     eval {
-        $v = ($lhs->[1] ne $rhs->[1] ? convert(@$rhs, $lhs->[1]) : $rhs->[0]);
+        $v = convert(@$rhs, $lhs->[1]);
     };
 
     $rhs->[0] = $v;
@@ -229,7 +234,7 @@ sub pv_str_ne {
 
     my $v;
     eval {
-        $v = ($lhs->[1] ne $rhs->[1] ? convert(@$rhs, $lhs->[1]) : $rhs->[0]);
+        $v = convert(@$rhs, $lhs->[1]);
     };
 
     $rhs->[0] = $v;
@@ -253,7 +258,7 @@ sub pv_num_eq {
 
     my $v;
     eval {
-        $v = ($lhs->[1] ne $rhs->[1] ? convert(@$rhs, $lhs->[2]) : $rhs->[0]);
+        $v = convert(@$rhs, $lhs->[1]);
     };
 
     if( $@ ) {
@@ -280,7 +285,7 @@ sub pv_num_lt {
 
     my $v;
     eval {
-        $v = ($lhs->[1] ne $rhs->[1] ? convert(@$rhs, $lhs->[1]) : $rhs->[0]);
+        $v = convert(@$rhs, $lhs->[1]);
     };
 
     if( $@ ) {
@@ -301,7 +306,7 @@ sub pv_num_gt {
 
     my $v;
     eval {
-        $v = ($lhs->[1] ne $rhs->[1] ? convert(@$rhs, $lhs->[1]) : $rhs->[0]);
+        $v = convert(@$rhs, $lhs->[1]);
     };
 
     if( $@ ) {
@@ -322,7 +327,7 @@ sub pv_num_lte {
 
     my $v;
     eval {
-        $v = ($lhs->[1] ne $rhs->[1] ? convert(@$rhs, $lhs->[1]) : $rhs->[0]);
+        $v = convert(@$rhs, $lhs->[1]);
     };
 
     if( $@ ) {
@@ -343,7 +348,7 @@ sub pv_num_gte {
 
     my $v;
     eval {
-        $v = ($lhs->[1] ne $rhs->[1] ? convert(@$rhs, $lhs->[1]) : $rhs->[0]);
+        $v = convert(@$rhs, $lhs->[1]);
     };
 
     if( $@ ) {
@@ -364,13 +369,10 @@ sub pv_print {
 
     if( $u->{unit} == 1 ) {
         $u = "";
-
     } else {
-        if( $v != 1 and $u->{sp} ) {
-            $u = " $u" . "s";
-
-        } else {
-            $u = " $u";
+        $u = " $u";
+        if( $v != 1 ) {
+            $u =~ s/\b$_->[0]\b/$_->[1]/sg for @AUTO_PLURALS;
         }
     }
 
@@ -626,12 +628,13 @@ use strict;
 use Carp;
 use Math::Algebra::Symbols;
 use overload
+    '+'  => \&au_add,
+    '-'  => \&au_sub,
     '/'  => \&au_div,
     '*'  => \&au_mul,
     '**' => \&au_mulmul,
   'sqrt' => \&au_sqrt,
     'eq' => \&au_eq,
-    'ne' => \&au_ne,
     '""' => \&au_print;
 
 # new {{{
@@ -672,7 +675,13 @@ sub new {
     return $this;
 }
 # }}}
+# au_mul {{{
+sub au_mul {
+    my ($lhs, $rhs) = @_;
 
+    return bless { unit=>($lhs->{unit} * $rhs->{unit}) }, ref $lhs;
+}
+# }}}
 # au_mulmul {{{
 sub au_mulmul {
     my ($lhs, $rhs) = @_;
@@ -689,56 +698,13 @@ sub au_sqrt {
     return bless { unit=>sqrt($lhs->{unit}) }, ref $lhs;
 }
 # }}}
-
-# au_eq {{{
-sub au_eq {
-    my ($lhs, $rhs) = @_;
-
-    $lhs->s_plural($rhs) if $lhs->{sp} and not $rhs->{sp} and $rhs =~ $lhs->{sp};
-    $rhs->s_plural($lhs) if $rhs->{sp} and not $lhs->{sp} and $lhs =~ $rhs->{sp};
-
-    return $lhs->au_print eq $rhs->au_print;
-}
-# }}}
-# au_ne {{{
-sub au_ne {
-    my ($lhs, $rhs) = @_;
-
-    return not ($lhs eq $rhs);
-}
-# }}}
-# au_mul {{{
-sub au_mul {
-    my ($lhs, $rhs) = @_;
-
-    $lhs->s_plural($rhs) if $lhs->{sp} and not $rhs->{sp} and $rhs =~ $lhs->{sp};
-    $rhs->s_plural($lhs) if $rhs->{sp} and not $lhs->{sp} and $lhs =~ $rhs->{sp};
-
-    my $ret = bless { unit=>($lhs->{unit} * $rhs->{unit}) }, ref $lhs;
-
-    return $ret;
-}
-# }}}
 # au_div {{{
 sub au_div {
     my ($lhs, $rhs) = @_;
 
-    $lhs->s_plural($rhs) if $lhs->{sp} and not $rhs->{sp} and $rhs =~ $lhs->{sp};
-    $rhs->s_plural($lhs) if $rhs->{sp} and not $lhs->{sp} and $lhs =~ $rhs->{sp};
-
     return bless { unit=>($lhs->{unit} / $rhs->{unit}) }, ref $lhs;
 }
 # }}}
-# s_plural {{{
-sub s_plural {
-    my $this = shift;
-    my $that = shift;
-
-    $that->{unit} = symbols("xx$this");
-    $that->{sp}   = $this->{sp};
-}
-# }}}
-
 # au_print {{{
 sub au_print {
     my $this = shift;
@@ -747,5 +713,12 @@ sub au_print {
        $a =~ s/\*\*/\^/g;
 
     return $a;
+}
+# }}}
+# au_eq {{{
+sub au_eq {
+    my ($lhs, $rhs) = @_;
+
+    return $lhs->au_print eq $rhs->au_print;
 }
 # }}}
