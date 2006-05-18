@@ -3,7 +3,8 @@
 
 0.53:  Tue May 16 10:45:25 EDT 2006
    - jettero added numeric and string comparison overloads. How were these not
-     in here before? Has nobody sorted a PV? I certainly didn't...
+     in here before? Has nobody sorted a PV? I certainly hadn't.  I wonder if
+     anyone uses this...
 
 0.52:  Wed Apr 12 13:31:27 EDT 2006
    - jettero added pv_str_ne

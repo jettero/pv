@@ -39,9 +39,8 @@ our @AUTO_PLURALS = ();
 
 1;
 
-# constants {{{
 sub G { Math::Units::PhysicalValue->new( "6.672e-11 N m^2 / kg^2" ) }
-# }}}
+
 # PV {{{
 sub PV {
     my $v = shift;
