@@ -17,3 +17,4 @@ t/50_zero.t
 t/55_exponents.t
 t/40_some_standard_values.t
 t/60_plurals.t
+t/49_assbackwards.t
