@@ -159,9 +159,10 @@ sub pv_sqrt {
 # }}}
 # pv_div {{{
 sub pv_div {
-    my ($lhs, $rhs) = @_;
+    my ($lhs, $rhs, $assbackwards) = @_;
 
     $rhs = ref($lhs)->new($rhs) unless ref $rhs eq ref $lhs;
+    return $rhs / $lhs if $assbackwards;
 
     my ($v, $u) = (@$lhs);
 
@@ -174,9 +175,10 @@ sub pv_div {
 
 # pv_sub {{{
 sub pv_sub {
-    my ($lhs, $rhs) = @_;
+    my ($lhs, $rhs, $assbackwards) = @_;
 
     $rhs = ref($lhs)->new($rhs eq "0" ? "0 $lhs->[1]" : $rhs) unless ref $rhs eq ref $lhs;
+    return ($rhs - $lhs) if $assbackwards;
 
     return $lhs->pv_add( $rhs->pv_mul(-1) );
 }
@@ -278,9 +280,10 @@ sub pv_num_eq {
 # }}}
 # pv_num_lt {{{
 sub pv_num_lt {
-    my ($lhs, $rhs) = @_;
+    my ($lhs, $rhs, $assbackwards) = @_;
 
     $rhs = ref($lhs)->new($rhs) unless ref $rhs eq ref $lhs;
+    return $rhs < $lhs if $assbackwards;
 
     my $v;
     eval {
@@ -299,9 +302,10 @@ sub pv_num_lt {
 # }}}
 # pv_num_gt {{{
 sub pv_num_gt {
-    my ($lhs, $rhs) = @_;
+    my ($lhs, $rhs, $assbackwards) = @_;
 
     $rhs = ref($lhs)->new($rhs) unless ref $rhs eq ref $lhs;
+    return $rhs > $lhs if $assbackwards;
 
     my $v;
     eval {
@@ -320,9 +324,10 @@ sub pv_num_gt {
 # }}}
 # pv_num_lte {{{
 sub pv_num_lte {
-    my ($lhs, $rhs) = @_;
+    my ($lhs, $rhs, $assbackwards) = @_;
 
     $rhs = ref($lhs)->new($rhs) unless ref $rhs eq ref $lhs;
+    return $rhs <= $lhs if $assbackwards;
 
     my $v;
     eval {
@@ -341,9 +346,10 @@ sub pv_num_lte {
 # }}}
 # pv_num_gte {{{
 sub pv_num_gte {
-    my ($lhs, $rhs) = @_;
+    my ($lhs, $rhs, $assbackwards) = @_;
 
     $rhs = ref($lhs)->new($rhs) unless ref $rhs eq ref $lhs;
+    return $rhs >= $lhs if $assbackwards;
 
     my $v;
     eval {
@@ -406,7 +412,10 @@ sub pv_bool {
 # }}}
 # pv_ncmp {{{
 sub pv_ncmp {
-    my ($lhs, $rhs) = @_;
+    my ($lhs, $rhs, $assbackwards) = @_;
+
+    $rhs = ref($lhs)->new($rhs) unless ref $rhs eq ref $lhs;
+    return $rhs <=> $lhs if $assbackwards;
 
     return -1 if $lhs < $rhs;
     return  1 if $lhs > $rhs;
@@ -415,7 +424,10 @@ sub pv_ncmp {
 # }}}
 # pv_scmp {{{
 sub pv_scmp {
-    my ($lhs, $rhs) = @_;
+    my ($lhs, $rhs, $assbackwards) = @_;
+
+    $rhs = ref($lhs)->new($rhs) unless ref $rhs eq ref $lhs;
+    return $rhs cmp $lhs if $assbackwards;
 
     return -1 if "$lhs" lt "$rhs";
     return  1 if "$lhs" gt "$rhs";
