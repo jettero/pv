@@ -22,8 +22,8 @@ Check out the man page: <a href="?eo_cat=PhysicalValue.html">Math::Units::Physic
 Last updated on $date
 EOF
 
-ssh mei.net "(cd /home/dillhome/voltar/html/PerlModules/; rm *PhysicalValue*)"
+ssh mei.net "(cd /home/voltar/html/PerlModules/; rm *PhysicalValue*)"
 (cd dist; chmod 644 *.html *.gz)
-scp -p dist/* mei.net:/home/dillhome/voltar/html/PerlModules/
+scp -p dist/* mei.net:/home/voltar/html/PerlModules/
 
 rm -rvf dist
