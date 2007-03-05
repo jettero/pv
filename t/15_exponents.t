@@ -4,7 +4,7 @@
 use strict;
 use Test;
 
-plan tests => 6;
+plan tests => 7;
 
 use Math::Units::PhysicalValue "PV";
 
@@ -21,6 +21,15 @@ TEST2: {
     $v2 += "0 g";
     $v3 += "0 g";
     ok( $v2 == $v3 );
+}
+
+NOT_TEST2: {
+    my $v2 = PV "19e28 Mg";
+    my $v3 = PV "1.9e34 g";
+
+    $v2 += "0 g";
+    $v3 += "0 g";
+    ok( not $v2 == $v3 );
 }
 
 TEST3: {
