@@ -1,3 +1,5 @@
+# $Id: PhysicalValue.pm 731.16385.CwC3kaV/K7cW2/xNnjLe2iz7HhY 2007-03-05 13:17:27 -0500 $
+
 package Math::Units::PhysicalValue;
 
 use strict;
