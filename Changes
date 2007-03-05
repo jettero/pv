@@ -1,5 +1,5 @@
 0.68:  Mon Mar  5 13:14:55 EST 2007
-   - jettero 
+   - jettero fixed a problem with num_eq, by using string comparisons...
 
 0.67:  Sun Aug 13 07:37:44 EDT 2006
    - jettero fixed an enormous bug in PV.pm where some operations could be
