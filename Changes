@@ -1,5 +1,9 @@
+0.68:  Mon Mar  5 13:14:55 EST 2007
+   - jettero 
+
 0.67:  Sun Aug 13 07:37:44 EDT 2006
-   - jettero fixed an enormous bug in PV.pm where some operations could be reversed if the LHS is unblessed.
+   - jettero fixed an enormous bug in PV.pm where some operations could be
+     reversed if the LHS is unblessed.
 
 0.66:  Wed May 17 21:08:59 EDT 2006
    - jettero added limited support for auto plurals ... the interface may well
