@@ -1,3 +1,6 @@
+0.71:  Mon Nov  5 07:33:56 EST 2007
+   - jettero fixed a bunch of bugs simultaneously by using Math::BigFloat. Why didn't I use that before?
+
 0.68:  Mon Mar  5 13:14:55 EST 2007
    - jettero fixed a problem with num_eq, by using string comparisons...
 

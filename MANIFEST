@@ -5,6 +5,7 @@ t/05_skydiving.t
 Changes
 META.yml
 README
+MANIFEST
 t/10_metric.t
 t/15_exponents.t
 t/20_longBIGfloats.t
