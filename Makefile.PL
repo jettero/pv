@@ -1,5 +1,5 @@
 # vi:set syntax=perl:
-# $Id: Makefile.PL 14.314.jMM6gc8lCSBxgHTQbBpcBUOOo94 2007-03-05 13:17:37 -0500 $
+# $Id: Makefile.PL 15.353.2EFvkwaFwns6Ik/ezhN1F8h08v0 2007-11-05 07:33:24 -0500 $
 
 use ExtUtils::MakeMaker;
 
@@ -10,5 +10,6 @@ WriteMakefile(
         'Number::Format'         => 0,
         'Math::Units'            => 0,
         'Math::Algebra::Symbols' => 0,
+        'Math::BigFloat'         => 0,
     },
 );

@@ -1,4 +1,4 @@
-# $Id: PhysicalValue.pm 731.16385.CwC3kaV/K7cW2/xNnjLe2iz7HhY 2007-03-05 13:17:27 -0500 $
+# $Id: PhysicalValue.pm 745.16640.zBDPPi9jpQaVxqapVw4BXHAoEu0 2007-11-05 07:33:56 -0500 $
 
 package Math::Units::PhysicalValue;
 
@@ -7,6 +7,7 @@ use Carp;
 use base qw(Exporter); 
 use Math::Units qw(convert);
 use Number::Format;
+use Math::BigFloat;
 use overload 
     '+'    => \&pv_add,
     '*'    => \&pv_mul,
@@ -28,7 +29,7 @@ use overload
     'cmp'  => \&pv_scmp,
     'bool' => \&pv_bool;
 
-our $VERSION        = "0.68";
+our $VERSION        = "0.71";
 our $StrictTypes    = 0; # throws errors on unknown units
 our $PrintPrecision = 2; 
 our $fmt;
@@ -78,7 +79,7 @@ sub new {
 
         $u =~ s/\b$_->[1]\b/$_->[0]/sg for @AUTO_PLURALS;
 
-        $this->[0] = $v;
+        $this->[0] = Math::BigFloat->new($v);
         $this->[1] = new Math::Units::PhysicalValue::AutoUnit $u;
 
     } else {
@@ -271,7 +272,7 @@ sub pv_num_eq {
         croak $e;
     }
 
-    return sprintf('%f', $lhs->[0]) == sprintf('%f', $v);  # I'm not happy about this, but it works 3/5/7
+    return $lhs->[0] == $v;
 }
 # }}}
 # pv_num_lt {{{
@@ -381,6 +382,12 @@ sub pv_print {
 
     # temprary fix until I hear back from the Number::Format guy
 
+    # $v->bstr; returns a string number
+    # $v->bsstr; returns a string in scinoti
+    # we can maybe use sstr later?
+
+    $v = $v->bstr;
+
     my $f = join('', $fmt->format_number( $v, $PrintPrecision ), $u);
     if( $f =~ m/^\S*e/ ) {
         $f = $v . $u;
@@ -446,7 +453,14 @@ sub sci {
 
     croak "please use 0 or more sigfigs..." if $digits < 0;
 
-    $v = $fmt->format_number($v / (10 ** $e), $digits-1) . "e$e";
+    # $v->bstr; returns a string number
+    # $v->bsstr; returns a string in scinoti
+    # we can maybe use sstr later?
+
+    $v /= (10 ** $e);
+    $v  = $v->bstr;
+
+    $v = $fmt->format_number($v, $digits-1) . "e$e";
 
     return $v . $u;
 }
