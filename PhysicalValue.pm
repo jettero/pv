@@ -30,7 +30,7 @@ use overload
     'bool' => \&pv_bool;
 
 use version;
-our $VERSION        = qv("0.71.0");
+our $VERSION        = qv("1.0.0");
 our $StrictTypes    = 0; # throws errors on unknown units
 our $PrintPrecision = 2; 
 our $fmt;
