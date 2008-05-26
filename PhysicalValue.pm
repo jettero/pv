@@ -29,7 +29,8 @@ use overload
     'cmp'  => \&pv_scmp,
     'bool' => \&pv_bool;
 
-our $VERSION        = "0.71";
+use version;
+our $VERSION        = qv("0.71.0");
 our $StrictTypes    = 0; # throws errors on unknown units
 our $PrintPrecision = 2; 
 our $fmt;

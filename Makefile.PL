@@ -11,5 +11,6 @@ WriteMakefile(
         'Math::Units'            => 0,
         'Math::Algebra::Symbols' => 0,
         'Math::BigFloat'         => 0,
+        version => 0,
     },
 );
