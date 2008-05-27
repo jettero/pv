@@ -1,4 +1,8 @@
 0.71.0: Mon May 26 16:00:12 EDT 2008
+   - user version needs to be on the same line as VERSION for
+     older EUMM
+
+0.71.0: Mon May 26 16:00:12 EDT 2008
    - added version.pm
 
 0.71:  Mon Nov  5 07:33:56 EST 2007
