@@ -11,6 +11,17 @@ WriteMakefile(
         'Math::Units'            => 0,
         'Math::Algebra::Symbols' => 0,
         'Math::BigFloat'         => 0,
-        version => 0,
     },
+
+    ($ExtUtils::MakeMaker::VERSION ge '6.48'? 
+        (MIN_PERL_VERSION => 5.008,
+            META_MERGE => {
+                keywords => [qw(units)],
+                resources=> {
+                    repository => 'http://github.com/jettero/pv/tree',
+                },
+            },
+
+        LICENSE	=> 'lgpl2',
+    ) : ()),
 );
