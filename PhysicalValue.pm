@@ -2,6 +2,8 @@
 package Math::Units::PhysicalValue;
 
 use strict;
+use Math::Units::PhysicalValue::AutoUnit;
+
 use Carp;
 use base qw(Exporter); 
 use Math::Units qw(convert);
