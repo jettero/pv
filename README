@@ -4,10 +4,6 @@ AUTHOR'S NOTE
     happy with Math::Units.  I felt that there should be a perl
     module that handles units in a human readable way.
 
-    And this is it.  Perhaps.  I imagine I'm an unlikely choice to
-    author a module like this.  Then again, nobody else did it.
-
-
     -Paul
 
 SYNOPSIS

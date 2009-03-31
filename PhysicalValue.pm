@@ -471,7 +471,7 @@ sub sci {
 
 =head1 NAME
 
-Math::Units::PhysicalValue - An object oriented interface for handling values with units.
+Math::Units::PhysicalValue - An OO interface for automatically calculating values with units.
 
 =head1 SYNOPSIS
 
