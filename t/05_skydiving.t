@@ -1,5 +1,4 @@
 # vi:fdm=marker fdl=0 syntax=perl:
-# $Id: 05_skydiving.t,v 1.4 2005/01/24 18:47:44 jettero Exp $
 
 use strict;
 use Test;

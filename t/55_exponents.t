@@ -1,5 +1,4 @@
 # vi:fdm=marker fdl=0 syntax=perl:
-# $Id: 55_exponents.t,v 1.5 2005/12/11 13:28:16 jettero Exp $
 
 use strict;
 use Test;

@@ -1,5 +1,4 @@
 # vi:fdm=marker fdl=0 syntax=perl:
-# $Id: 50_zero.t,v 1.4 2005/12/07 21:18:27 jettero Exp $
 
 use strict;
 use Test;

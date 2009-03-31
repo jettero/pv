@@ -1,4 +1,3 @@
-# $Id: PhysicalValue.pm 745.16640.zBDPPi9jpQaVxqapVw4BXHAoEu0 2007-11-05 07:33:56 -0500 $
 
 package Math::Units::PhysicalValue;
 
