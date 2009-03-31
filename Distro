@@ -2,6 +2,7 @@
 # $Id: Distro,v 1.3 2005/01/13 12:16:08 jettero Exp $
 
 ./distclean
+check_manifest || exit 1
 perl Makefile.PL && make dist
 
 mkdir -p dist

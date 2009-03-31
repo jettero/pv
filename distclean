@@ -1,6 +1,4 @@
 #!/bin/sh
 # $Id: distclean,v 1.2 2005/02/09 17:12:07 jettero Exp $
 
-perl Makefile.PL
-make metafile
-make distclean
+git clean -dfx
