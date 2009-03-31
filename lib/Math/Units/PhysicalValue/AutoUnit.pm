@@ -98,3 +98,5 @@ sub au_eq {
     return $lhs->au_print eq $rhs->au_print;
 }
 # }}}
+
+"this file is true"

@@ -3,6 +3,8 @@
    - added chorny's META.yml stuff
    - added pv to the list of exports PV() is good, pv() is
      easier.
+   - split the auto units module
+   - split the pod
 
 0.71.0: Mon May 26 16:00:12 EDT 2008
    - user version needs to be on the same line as VERSION for
