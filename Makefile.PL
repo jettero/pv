@@ -1,5 +1,4 @@
 # vi:set syntax=perl:
-# $Id: Makefile.PL 15.353.2EFvkwaFwns6Ik/ezhN1F8h08v0 2007-11-05 07:33:24 -0500 $
 
 use ExtUtils::MakeMaker;
 

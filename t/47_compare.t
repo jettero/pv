@@ -1,5 +1,4 @@
 # vi:fdm=marker fdl=0 syntax=perl:
-# $Id: 47_compare.t,v 1.1 2006/05/16 14:45:27 jettero Exp $
 
 use strict;
 use Test;

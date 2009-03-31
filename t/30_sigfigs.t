@@ -1,5 +1,4 @@
 # vi:fdm=marker fdl=0 syntax=perl:
-# $Id: 30_sigfigs.t,v 1.2 2005/01/16 15:26:52 jettero Exp $
 
 use strict;
 use Test;

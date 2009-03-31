@@ -1,5 +1,4 @@
 # vi:fdm=marker fdl=0 syntax=perl:
-# $Id: 35_powers.t,v 1.2 2005/12/11 13:28:16 jettero Exp $
 
 use strict;
 use Test;

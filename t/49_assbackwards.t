@@ -1,5 +1,4 @@
 # vi:fdm=marker fdl=0 syntax=perl:
-# $Id: 49_assbackwards.t,v 1.1 2006/08/13 11:37:17 jettero Exp $
 
 use strict;
 use Test;

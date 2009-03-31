@@ -1,5 +1,4 @@
 # vi:fdm=marker fdl=0 syntax=perl:
-# $Id: 45_boolean.t,v 1.1 2005/02/10 16:06:10 jettero Exp $
 
 use strict;
 use Test;
