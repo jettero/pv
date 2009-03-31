@@ -35,7 +35,7 @@ our $PrintPrecision = 2;
 our $fmt;
     $fmt = new Number::Format if not defined $fmt;
 
-our @EXPORT_OK = qw(PV G);
+our @EXPORT_OK = qw(pv PV G);
 our @AUTO_PLURALS = ();
 
 # NOTE:  AUTO_PLURALS and G are not documented because they are still experimental
@@ -50,6 +50,7 @@ sub PV {
 
     return Math::Units::PhysicalValue->new( $v );
 }
+*pv = *PV;
 # }}}
 
 # new {{{
