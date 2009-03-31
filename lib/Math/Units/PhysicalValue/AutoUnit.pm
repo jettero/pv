@@ -13,6 +13,8 @@ use overload
     'eq' => \&au_eq,
     '""' => \&au_print;
 
+our $VERSION = 1.0005; # PV::AU diverges from PV here
+
 # new {{{
 sub new {
     my $class = shift;
