@@ -17,7 +17,7 @@ WriteMakefile(
             META_MERGE => {
                 keywords => [qw(units)],
                 resources=> {
-                    repository => 'http://github.com/jettero/pv/tree',
+                    repository => 'http://github.com/jettero/pv/',
                 },
             },
 
