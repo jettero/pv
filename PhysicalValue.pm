@@ -30,7 +30,7 @@ use overload
     'cmp'  => \&pv_scmp,
     'bool' => \&pv_bool;
 
-our $VERSION = 1.0005;
+our $VERSION = 1.0007;
 
 our $StrictTypes    = 0; # throws errors on unknown units
 our $PrintPrecision = 2; 
