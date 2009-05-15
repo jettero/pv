@@ -1,8 +1,0 @@
-#!/bin/sh
-# $Id: makeitfromscratch,v 1.1 2005/01/12 20:12:48 jettero Exp $
-
-./distclean
-check_manifest || exit 1
-perl Makefile.PL
-make
-
