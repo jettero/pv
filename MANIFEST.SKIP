@@ -1,10 +1,4 @@
-CVS
-I
-.cvsignore
-distclean
-makeitfromscratch
-Distro
 MANIFEST.SKIP
-installhere
-ci
-.git
+^\.git
+^\.pm-desc.html$
+^\.st$
