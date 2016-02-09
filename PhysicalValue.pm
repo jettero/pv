@@ -378,6 +378,20 @@ sub pv_print {
     } else {
         $u = " $u";
 
+        # XXX: evil hack
+        # Attempt to impose alphabetical ordering 
+        # on kg*m/s vs m*kg/s
+        # (this will only catch simple cases)
+        my @to_fix;
+        while($u =~ m/\b(\w+\*\w+)\b/g) {
+            my $orig = $1;
+            my @s = split m/\*/, $orig;
+            my $fixed = join('*', sort @s);
+            push @to_fix, [quotemeta($orig) => $fixed] if $orig ne $fixed;
+        }
+
+        $u =~ s/$_->[0]/$_->[1]/ for @to_fix;
+
         if( $v != 1 ) {
             $u =~ s/\b$_->[0]\b/$_->[1]/sg for @AUTO_PLURALS;
         }
