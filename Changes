@@ -1,5 +1,6 @@
 1.008: Tue Feb 09 2016
    - trying to resolve the test failures that result from LC_NUMERIC differing from USian ($3,000.14)
+   - also, try to impose alphabetical ordering on kg*m vs m*kg
 
 1.007: Fri May 15 07:19:12 EDT 2009
    - Math::Round apparently started detecting overflows...  I was unaware of
