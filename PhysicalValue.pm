@@ -374,8 +374,10 @@ sub pv_print {
 
     if( $u->{unit} == 1 ) {
         $u = "";
+
     } else {
         $u = " $u";
+
         if( $v != 1 ) {
             $u =~ s/\b$_->[0]\b/$_->[1]/sg for @AUTO_PLURALS;
         }
