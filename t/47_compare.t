@@ -1,6 +1,6 @@
 # vi:fdm=marker fdl=0 syntax=perl:
 
-BEGIN { $ENV{LC_ALL} = "C" }
+BEGIN { use POSIX qw(setlocale LC_ALL); setlocale(LC_ALL, "C") }
 
 use strict;
 use Test;
